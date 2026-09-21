@@ -1,6 +1,6 @@
 @font-face {
     font-family: "VALVESFONT";
-    src: local("Valves"), local("Zeroth Armature");
+    src: url("Valves.otf") format("opentype");
 }
 
 body {
