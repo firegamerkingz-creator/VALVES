@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +7,8 @@
     <link rel="stylesheet" href="Style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 </head>
-
 <body>
 
-<!-- NAVIGATION BAR -->
 <nav class="Navbar">
     <a class="NavbarLogo" href="index.html">VALVES</a>
 
@@ -74,13 +71,10 @@
     </div>
 </nav>
 
-<!-- FIXED STYLE DECORATIONS -->
+<!-- STYLE DECORATIONS: ONE VALVE IMAGE ONLY -->
 <div class="StyleDecorations" aria-hidden="true">
-
-    <!-- Custom valve shown in Deep Pressure -->
     <img class="DeepPressureValveImage" src="Valve.png" alt="">
 
-    <!-- High Voltage warning panel, reserved for a future style -->
     <div class="HighVoltagePanel">
         <div class="WarningStripe"></div>
         <strong>⚠ WARNING</strong>
@@ -90,17 +84,14 @@
         </div>
         <small>POWER SYSTEM ACTIVE</small>
     </div>
-
 </div>
 
-<!-- MAIN HEADING -->
 <div class="HeadingContainer">
     <h5 class="SmallHeading">Only on Roblox</h5>
     <h1 class="MainHeading">VALVES</h1>
     <h5 class="SmallerHeading">FireGamerKingz</h5>
 </div>
 
-<!-- FIRST PLAY BUTTON -->
 <div class="ButtonContainer">
     <a class="PlayButton"
        href="https://www.roblox.com/games/113767551814723/Valves"
@@ -109,7 +100,6 @@
     </a>
 </div>
 
-<!-- COUNTDOWN DISPLAY -->
 <div class="CountdownContainer">
     <h2 class="CountdownTitle">LAUNCHING IN</h2>
 
@@ -118,17 +108,14 @@
             <span id="Days">--</span>
             <p>DAYS</p>
         </div>
-
         <div class="TimeBox">
             <span id="Hours">Currently</span>
             <p>HOURS</p>
         </div>
-
         <div class="TimeBox">
             <span id="Minutes">Unknown</span>
             <p>MINUTES</p>
         </div>
-
         <div class="TimeBox">
             <span id="Seconds">--</span>
             <p>SECONDS</p>
@@ -136,24 +123,19 @@
     </div>
 </div>
 
-<!-- ABOUT VALVES -->
 <div class="AboutContainer">
     <h2 class="SectionTitle">ABOUT VALVES</h2>
-
     <p class="AboutText">
         VALVES is a survival horror game where you descend into various different floors with a range of deadily entities.
         Turn valves, manage the pressure, escape the floors and blow up the facility once and for all.
     </p>
 </div>
 
-<!-- DISCORD -->
 <div class="DiscordContainer">
     <h2 class="SectionTitle">JOIN THE FACILITY</h2>
-
     <p class="DiscordText">
         Stay up to date with VALVES development, announcements, sneak peeks and more.
     </p>
-
     <a class="DiscordButton"
        href="https://discord.gg/brT4BGdf3f"
        target="_blank" rel="noopener noreferrer">
@@ -161,7 +143,6 @@
     </a>
 </div>
 
-<!-- SECOND PLAY BUTTON -->
 <div class="ButtonContainer">
     <a class="PlayButton"
        href="https://www.roblox.com/games/113767551814723/Valves"
@@ -170,101 +151,94 @@
     </a>
 </div>
 
-<!-- STYLE SELECTION AND SAVING -->
 <script>
-const styles = {
-    "default": {
-        unlocked: true
-    },
-    "deep-pressure": {
-        unlocked: true
-    },
-    "high-voltage": {
-        unlocked: false
-    },
-    "critical-failure": {
-        unlocked: false
+(function () {
+    const styles = {
+        "default": { unlocked: true },
+        "deep-pressure": { unlocked: true },
+        "high-voltage": { unlocked: false },
+        "critical-failure": { unlocked: false }
+    };
+
+    const dropdownButton = document.getElementById("StylesDropdownButton");
+    const dropdown = document.getElementById("StylesDropdown");
+    const styleButtons = document.querySelectorAll(".StyleOption");
+
+    function applyStyle(styleName) {
+        if (!styles[styleName] || !styles[styleName].unlocked) {
+            styleName = "default";
+        }
+
+        document.body.dataset.style = styleName;
+
+        styleButtons.forEach(function (button) {
+            const selected = button.dataset.style === styleName;
+            button.classList.toggle("SelectedStyle", selected);
+
+            const status = button.querySelector(".StyleStatus");
+            if (status) {
+                status.textContent = selected ? "ACTIVE" : "FREE";
+            }
+        });
+
+        try {
+            localStorage.setItem("valvesStyle", styleName);
+        } catch (error) {
+            // Style still works if browser storage is unavailable.
+        }
     }
-};
 
-const dropdownButton = document.getElementById("StylesDropdownButton");
-const dropdown = document.getElementById("StylesDropdown");
-const styleButtons = document.querySelectorAll(".StyleOption");
+    dropdownButton.addEventListener("click", function (event) {
+        event.stopPropagation();
 
-function applyStyle(styleName) {
-    if (!styles[styleName] || !styles[styleName].unlocked) {
-        styleName = "default";
-    }
+        const opening = dropdown.hidden;
+        dropdown.hidden = !opening;
+        dropdownButton.setAttribute("aria-expanded", String(opening));
+    });
 
-    document.body.dataset.style = styleName;
+    styleButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            const styleName = button.dataset.style;
 
-    styleButtons.forEach(function(button) {
-        const selected = button.dataset.style === styleName;
-        button.classList.toggle("SelectedStyle", selected);
+            if (!styles[styleName].unlocked) {
+                alert(
+                    "STYLE LOCKED\n\n" +
+                    "This facility style isn't available yet. " +
+                    "It may be introduced in a future update."
+                );
+                return;
+            }
 
-        const status = button.querySelector(".StyleStatus");
-        if (status) {
-            status.textContent = selected ? "ACTIVE" : "FREE";
+            applyStyle(styleName);
+            dropdown.hidden = true;
+            dropdownButton.setAttribute("aria-expanded", "false");
+        });
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!dropdown.contains(event.target) &&
+            !dropdownButton.contains(event.target)) {
+            dropdown.hidden = true;
+            dropdownButton.setAttribute("aria-expanded", "false");
         }
     });
+
+    let savedStyle = "default";
 
     try {
-        localStorage.setItem("valvesStyle", styleName);
-    } catch (error) {
-        // The selected style still works during this visit.
-    }
-}
+        const storedStyle = localStorage.getItem("valvesStyle");
 
-dropdownButton.addEventListener("click", function(event) {
-    event.stopPropagation();
-
-    const opening = dropdown.hidden;
-    dropdown.hidden = !opening;
-    dropdownButton.setAttribute("aria-expanded", String(opening));
-});
-
-styleButtons.forEach(function(button) {
-    button.addEventListener("click", function() {
-        const styleName = button.dataset.style;
-
-        if (!styles[styleName].unlocked) {
-            alert(
-                "STYLE LOCKED\n\n" +
-                "This facility style isn't available yet. " +
-                "It may be introduced in a future update."
-            );
-            return;
+        if (storedStyle &&
+            styles[storedStyle] &&
+            styles[storedStyle].unlocked) {
+            savedStyle = storedStyle;
         }
-
-        applyStyle(styleName);
-        dropdown.hidden = true;
-        dropdownButton.setAttribute("aria-expanded", "false");
-    });
-});
-
-document.addEventListener("click", function(event) {
-    if (
-        !dropdown.contains(event.target) &&
-        !dropdownButton.contains(event.target)
-    ) {
-        dropdown.hidden = true;
-        dropdownButton.setAttribute("aria-expanded", "false");
+    } catch (error) {
+        // Use the default style if storage is unavailable.
     }
-});
 
-let savedStyle = "default";
-
-try {
-    const storedStyle = localStorage.getItem("valvesStyle");
-
-    if (storedStyle && styles[storedStyle] && styles[storedStyle].unlocked) {
-        savedStyle = storedStyle;
-    }
-} catch (error) {
-    // Default style is used if browser storage is unavailable.
-}
-
-applyStyle(savedStyle);
+    applyStyle(savedStyle);
+})();
 </script>
 
 <!-- ORIGINAL COUNTDOWN SCRIPT REMAINS DISABLED.
