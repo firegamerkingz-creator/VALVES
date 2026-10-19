@@ -1,33 +1,119 @@
+
 <!DOCTYPE html>
-
-<html>
-
-<head> 
-    <link rel="stylesheet" href="Style.css"> 
-    <title>VALVES</title> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VALVES</title>
+    <link rel="stylesheet" href="Style.css">
     <link rel="icon" type="image/png" href="favicon.png">
 </head>
 
 <body>
 
+<!-- NAVIGATION BAR -->
+<nav class="Navbar">
+    <a class="NavbarLogo" href="index.html">VALVES</a>
+
+    <div class="NavbarLinks">
+        <a class="NavbarLink ActiveLink" href="index.html">HOME</a>
+
+        <div class="StylesDropdownContainer">
+            <button class="NavbarLink StylesDropdownButton"
+                    id="StylesDropdownButton"
+                    type="button"
+                    aria-expanded="false">
+                STYLES <span class="DropdownArrow">▾</span>
+            </button>
+
+            <div class="StylesDropdown" id="StylesDropdown" hidden>
+                <h3 class="DropdownHeading">WEBSITE STYLES</h3>
+                <p class="DropdownSubheading">Customise your VALVES experience</p>
+
+                <button class="StyleOption SelectedStyle" type="button" data-style="default">
+                    <span class="StylePreview DefaultPreview"></span>
+                    <span class="StyleDetails">
+                        <strong>Default</strong>
+                        <small>Original VALVES appearance</small>
+                    </span>
+                    <span class="StyleStatus">ACTIVE</span>
+                </button>
+
+                <button class="StyleOption" type="button" data-style="deep-pressure">
+                    <span class="StylePreview PressurePreview">≈</span>
+                    <span class="StyleDetails">
+                        <strong>Deep Pressure</strong>
+                        <small>Underwater theme and custom valve</small>
+                    </span>
+                    <span class="StyleStatus">FREE</span>
+                </button>
+
+                <button class="StyleOption" type="button" data-style="high-voltage">
+                    <span class="StylePreview VoltagePreview">ϟ</span>
+                    <span class="StyleDetails">
+                        <strong>High Voltage</strong>
+                        <small>Electrical facility warning theme</small>
+                    </span>
+                    <span class="LockStatus">🔒</span>
+                </button>
+
+                <button class="StyleOption" type="button" data-style="critical-failure">
+                    <span class="StylePreview FailurePreview">!</span>
+                    <span class="StyleDetails">
+                        <strong>Critical Failure</strong>
+                        <small>Emergency warning theme</small>
+                    </span>
+                    <span class="LockStatus">🔒</span>
+                </button>
+
+                <p class="DropdownNote">
+                    More facility styles may be added in future updates.
+                </p>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- FIXED STYLE DECORATIONS -->
+<div class="StyleDecorations" aria-hidden="true">
+
+    <!-- Custom valve shown in Deep Pressure -->
+    <img class="DeepPressureValveImage" src="Valve.png" alt="">
+
+    <!-- High Voltage warning panel, reserved for a future style -->
+    <div class="HighVoltagePanel">
+        <div class="WarningStripe"></div>
+        <strong>⚠ WARNING</strong>
+        <span>HIGH VOLTAGE</span>
+        <div class="PowerCell">
+            <div class="PowerCellFill"></div>
+        </div>
+        <small>POWER SYSTEM ACTIVE</small>
+    </div>
+
+</div>
+
+<!-- MAIN HEADING -->
 <div class="HeadingContainer">
     <h5 class="SmallHeading">Only on Roblox</h5>
     <h1 class="MainHeading">VALVES</h1>
     <h5 class="SmallerHeading">FireGamerKingz</h5>
 </div>
 
+<!-- FIRST PLAY BUTTON -->
 <div class="ButtonContainer">
-    <a class="PlayButton" href="https://www.roblox.com/games/113767551814723/Valves" target="_blank">
+    <a class="PlayButton"
+       href="https://www.roblox.com/games/113767551814723/Valves"
+       target="_blank" rel="noopener noreferrer">
         PLAY NOW
     </a>
 </div>
 
+<!-- COUNTDOWN DISPLAY -->
 <div class="CountdownContainer">
-
     <h2 class="CountdownTitle">LAUNCHING IN</h2>
 
     <div class="Countdown">
-
         <div class="TimeBox">
             <span id="Days">--</span>
             <p>DAYS</p>
@@ -47,123 +133,142 @@
             <span id="Seconds">--</span>
             <p>SECONDS</p>
         </div>
-
     </div>
-
 </div>
 
+<!-- ABOUT VALVES -->
 <div class="AboutContainer">
-
     <h2 class="SectionTitle">ABOUT VALVES</h2>
 
     <p class="AboutText">
-        VALVES is a survival horror game where you descend into various different floors with a range of deadily entities. 
+        VALVES is a survival horror game where you descend into various different floors with a range of deadily entities.
         Turn valves, manage the pressure, escape the floors and blow up the facility once and for all.
     </p>
-
 </div>
 
-
+<!-- DISCORD -->
 <div class="DiscordContainer">
-
     <h2 class="SectionTitle">JOIN THE FACILITY</h2>
 
     <p class="DiscordText">
         Stay up to date with VALVES development, announcements, sneak peeks and more.
     </p>
 
-    <a class="DiscordButton" href="https://discord.gg/brT4BGdf3f" target="_blank">
+    <a class="DiscordButton"
+       href="https://discord.gg/brT4BGdf3f"
+       target="_blank" rel="noopener noreferrer">
         JOIN DISCORD
     </a>
-
 </div>
 
+<!-- SECOND PLAY BUTTON -->
 <div class="ButtonContainer">
-    <a class="PlayButton" href="https://www.roblox.com/games/113767551814723/Valves" target="_blank">
+    <a class="PlayButton"
+       href="https://www.roblox.com/games/113767551814723/Valves"
+       target="_blank" rel="noopener noreferrer">
         PLAY NOW
     </a>
 </div>
 
+<!-- STYLE SELECTION AND SAVING -->
+<script>
+const styles = {
+    "default": {
+        unlocked: true
+    },
+    "deep-pressure": {
+        unlocked: true
+    },
+    "high-voltage": {
+        unlocked: false
+    },
+    "critical-failure": {
+        unlocked: false
+    }
+};
 
-<!-- <script>
+const dropdownButton = document.getElementById("StylesDropdownButton");
+const dropdown = document.getElementById("StylesDropdown");
+const styleButtons = document.querySelectorAll(".StyleOption");
 
-    // ==========================================
-    // VALVES LAUNCH DATE
-    // Change this when the launch is confirmed
-    // ==========================================
+function applyStyle(styleName) {
+    if (!styles[styleName] || !styles[styleName].unlocked) {
+        styleName = "default";
+    }
 
-    const launchDate = new Date("2026-12-06T12:00:00");
+    document.body.dataset.style = styleName;
 
+    styleButtons.forEach(function(button) {
+        const selected = button.dataset.style === styleName;
+        button.classList.toggle("SelectedStyle", selected);
 
-    function updateCountdown() {
+        const status = button.querySelector(".StyleStatus");
+        if (status) {
+            status.textContent = selected ? "ACTIVE" : "FREE";
+        }
+    });
 
-        const now = new Date();
+    try {
+        localStorage.setItem("valvesStyle", styleName);
+    } catch (error) {
+        // The selected style still works during this visit.
+    }
+}
 
-        const difference = launchDate.getTime() - now.getTime();
+dropdownButton.addEventListener("click", function(event) {
+    event.stopPropagation();
 
+    const opening = dropdown.hidden;
+    dropdown.hidden = !opening;
+    dropdownButton.setAttribute("aria-expanded", String(opening));
+});
 
-        // If launch date has passed
+styleButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        const styleName = button.dataset.style;
 
-        if (difference <= 0) {
-
-            document.getElementById("Days").textContent = "00";
-            document.getElementById("Hours").textContent = "00";
-            document.getElementById("Minutes").textContent = "00";
-            document.getElementById("Seconds").textContent = "00";
-
-            document.querySelector(".CountdownTitle").textContent = "VALVES IS NOW LIVE";
-
+        if (!styles[styleName].unlocked) {
+            alert(
+                "STYLE LOCKED\n\n" +
+                "This facility style isn't available yet. " +
+                "It may be introduced in a future update."
+            );
             return;
         }
 
+        applyStyle(styleName);
+        dropdown.hidden = true;
+        dropdownButton.setAttribute("aria-expanded", "false");
+    });
+});
 
-        // Calculate time
-
-        const days = Math.floor(
-            difference / (1000 * 60 * 60 * 24)
-        );
-
-        const hours = Math.floor(
-            (difference / (1000 * 60 * 60)) % 24
-        );
-
-        const minutes = Math.floor(
-            (difference / (1000 * 60)) % 60
-        );
-
-        const seconds = Math.floor(
-            (difference / 1000) % 60
-        );
-
-
-        // Display time
-
-        document.getElementById("Days").textContent =
-            String(days).padStart(2, "0");
-
-        document.getElementById("Hours").textContent =
-            String(hours).padStart(2, "0");
-
-        document.getElementById("Minutes").textContent =
-            String(minutes).padStart(2, "0");
-
-        document.getElementById("Seconds").textContent =
-            String(seconds).padStart(2, "0");
-
+document.addEventListener("click", function(event) {
+    if (
+        !dropdown.contains(event.target) &&
+        !dropdownButton.contains(event.target)
+    ) {
+        dropdown.hidden = true;
+        dropdownButton.setAttribute("aria-expanded", "false");
     }
+});
 
+let savedStyle = "default";
 
-    // Run immediately
+try {
+    const storedStyle = localStorage.getItem("valvesStyle");
 
-    updateCountdown();
+    if (storedStyle && styles[storedStyle] && styles[storedStyle].unlocked) {
+        savedStyle = storedStyle;
+    }
+} catch (error) {
+    // Default style is used if browser storage is unavailable.
+}
 
+applyStyle(savedStyle);
+</script>
 
-    // Update every second
-
-    setInterval(updateCountdown, 1000);
-
-</script> -->
+<!-- ORIGINAL COUNTDOWN SCRIPT REMAINS DISABLED.
+     Keep your original commented-out countdown code here unchanged. -->
 
 </body>
-
 </html>

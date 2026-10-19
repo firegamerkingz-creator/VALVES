@@ -1,41 +1,49 @@
+
 @font-face {
     font-family: "VALVESFONT";
     src: url("Valves.otf") format("opentype");
 }
 
+/* ========================================
+   BASE PAGE
+   ======================================== */
+
 body {
     background-color: rgb(0, 0, 0);
     margin: 0;
+    color: white;
 }
 
 .HeadingContainer {
     position: relative;
     width: 100%;
-    height: 400px;
-
+    height: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     text-align: center;
-
     overflow: hidden;
+    isolation: isolate;
 }
 
 .HeadingContainer::before {
     content: "";
-
     position: absolute;
     inset: 0;
-
     background: url("BackgroundValves.png") center center / cover no-repeat;
-
     filter: blur(10px);
-
     transform: scale(1.1);
-
     z-index: 0;
+}
+
+.HeadingContainer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: transparent;
 }
 
 .SmallHeading,
@@ -43,12 +51,9 @@ body {
 .MainHeading {
     position: relative;
     z-index: 1;
-
     color: white;
     font-family: "VALVESFONT";
-
     margin: 0;
-
     text-align: center;
 }
 
@@ -60,13 +65,215 @@ body {
     font-size: 150px;
 }
 
+.SmallerHeading {
+    font-size: 16px;
+}
+
+/* ========================================
+   NAVIGATION BAR
+   ======================================== */
+
+.Navbar {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 3%;
+    background: #050607;
+    border-bottom: 1px solid #30343a;
+    box-sizing: border-box;
+}
+
+.NavbarLogo {
+    color: white;
+    font-family: "VALVESFONT";
+    font-size: 28px;
+    text-decoration: none;
+}
+
+.NavbarLinks {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.NavbarLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    color: white;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-family: "VALVESFONT";
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.NavbarLink:hover,
+.NavbarLink:focus-visible {
+    background: #1a1d21;
+    border-color: #454b53;
+}
+
+.StylesDropdownContainer {
+    position: relative;
+}
+
+.DropdownArrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.StylesDropdownButton[aria-expanded="true"] .DropdownArrow {
+    transform: rotate(180deg);
+}
+
+.StylesDropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 30;
+    width: 330px;
+    padding: 12px;
+    background: #090c10;
+    border: 1px solid #363e48;
+    border-radius: 6px;
+    box-shadow: 0 15px 40px #000a;
+    box-sizing: border-box;
+}
+
+.StylesDropdown[hidden] {
+    display: none;
+}
+
+.DropdownHeading {
+    margin: 8px;
+    color: white;
+    font-family: "VALVESFONT";
+    font-size: 22px;
+}
+
+.DropdownSubheading,
+.DropdownNote {
+    margin: 8px;
+    color: #9aa4af;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.StyleOption {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-top: 5px;
+    padding: 10px;
+    color: white;
+    text-align: left;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.StyleOption:hover {
+    background: #171c22;
+    border-color: #363e48;
+}
+
+.StyleOption.SelectedStyle {
+    background: #ffffff12;
+    border-color: #ffffff66;
+}
+
+.StylePreview {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #454b53;
+    border-radius: 4px;
+    font-family: "VALVESFONT";
+    font-size: 24px;
+    box-sizing: border-box;
+}
+
+.DefaultPreview {
+    background: linear-gradient(135deg, #353535, #080808);
+}
+
+.DefaultPreview::after {
+    content: "";
+    width: 15px;
+    height: 15px;
+    border: 3px solid white;
+    border-radius: 50%;
+}
+
+.PressurePreview {
+    color: #50c5eb;
+    background: linear-gradient(135deg, #15516b, #031019);
+}
+
+.VoltagePreview {
+    color: #ffd543;
+    background: repeating-linear-gradient(
+        135deg,
+        #302809 0 8px,
+        #080808 8px 16px
+    );
+}
+
+.FailurePreview {
+    color: #ff4b57;
+    background: linear-gradient(135deg, #481018, #100607);
+}
+
+.StyleDetails {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.StyleDetails strong {
+    font-family: "VALVESFONT";
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.StyleDetails small {
+    color: #a0aab5;
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+}
+
+.StyleStatus {
+    color: #b4dfbf;
+    font-family: "VALVESFONT";
+    font-size: 10px;
+}
+
+.LockStatus {
+    font-size: 15px;
+}
+
+/* ========================================
+   PLAY BUTTONS
+   ======================================== */
+
 .ButtonContainer {
     width: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 30px 0;
 }
 
@@ -74,27 +281,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 15px 45px;
-
     color: white;
     background-color: black;
-
     border: 2px solid white;
     border-radius: 5px;
-
     font-family: "VALVESFONT";
     font-size: 25px;
-
     text-decoration: none;
-
     transition: 0.2s ease;
 }
 
 .PlayButton:hover {
     background-color: white;
     color: black;
-
     transform: scale(1.05);
 }
 
@@ -102,154 +302,403 @@ body {
     transform: scale(0.98);
 }
 
-.CountdownContainer {
-width: 100%;
-text-align: center;
-padding: 20px 0 50px;
+/* ========================================
+   COUNTDOWN
+   ======================================== */
 
+.CountdownContainer {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0 50px;
 }
 
 .CountdownTitle {
-color: white;
-font-family: "VALVESFONT";
-font-size: 30px;
-
-margin: 0 0 20px;
-
+    color: white;
+    font-family: "VALVESFONT";
+    font-size: 30px;
+    margin: 0 0 20px;
 }
 
 .Countdown {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 15px;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 .TimeBox {
-min-width: 100px;
-padding: 15px 10px;
-
-border: 2px solid white;
-border-radius: 5px;
-
-font-family: "VALVESFONT";
+    min-width: 100px;
+    padding: 15px 10px;
+    border: 2px solid white;
+    border-radius: 5px;
+    font-family: "VALVESFONT";
+    box-sizing: border-box;
 }
 
 .TimeBox span {
-display: block;
-color: white;
-
-font-size: 45px;
+    display: block;
+    color: white;
+    font-size: 45px;
 }
 
 .TimeBox p {
-color: white;
-font-size: 15px;
-margin: 5px 0 0;
-
+    color: white;
+    font-size: 15px;
+    margin: 5px 0 0;
 }
 
-/* ========================= */
-/* ABOUT VALVES */
-/* ========================= */
+/* ========================================
+   ABOUT VALVES
+   ======================================== */
 
 .AboutContainer {
     width: 70%;
     max-width: 900px;
-
     margin: 40px auto 0;
-
     padding: 50px 30px;
-
     text-align: center;
-
     border-top: 2px solid white;
     border-bottom: 2px solid white;
+    box-sizing: border-box;
 }
 
 .SectionTitle {
     color: white;
-
     font-family: "VALVESFONT";
-
     font-size: 40px;
-
     margin: 0 0 25px;
 }
 
 .AboutText {
     color: white;
-
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     font-size: 18px;
-
     line-height: 1.7;
-
     margin: 0 auto;
-
     max-width: 750px;
 }
 
-
-/* ========================= */
-/* DISCORD */
-/* ========================= */
+/* ========================================
+   DISCORD
+   ======================================== */
 
 .DiscordContainer {
     width: 100%;
-
     text-align: center;
-
-    padding: 70px 0;
+    padding: 70px 20px;
+    box-sizing: border-box;
 }
 
 .DiscordText {
     color: white;
-
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     font-size: 18px;
-
     margin: 0 auto 30px;
-
     max-width: 600px;
+    line-height: 1.6;
 }
 
 .DiscordButton {
     display: inline-flex;
-
     justify-content: center;
     align-items: center;
-
     padding: 15px 45px;
-
     color: white;
-
     background-color: black;
-
     border: 2px solid white;
-
     border-radius: 5px;
-
     font-family: "VALVESFONT";
-
     font-size: 25px;
-
     text-decoration: none;
-
     transition: 0.2s ease;
 }
 
 .DiscordButton:hover {
     background-color: white;
-
     color: black;
-
     transform: scale(1.05);
 }
 
 .DiscordButton:active {
     transform: scale(0.98);
+}
+
+/* ========================================
+   FIXED STYLE DECORATIONS
+   ======================================== */
+
+.StyleDecorations {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+
+
+/* DEEP PRESSURE: CUSTOM VALVE IMAGE */
+
+.DeepPressureValveImage {
+    display: none;
+    position: fixed;
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 500px;
+    max-height: 850px;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 5;
+}
+
+body[data-style="deep-pressure"] .DeepPressureValveImage {
+    display: block;
+}
+
+/* MOBILE POSITIONING */
+
+@media (max-width: 600px) {
+    body[data-style="deep-pressure"] .DeepPressureValveImage {
+        left: 5px;
+        width: 115px;
+        max-height: 280px;
+    }
+}
+
+
+
+body[data-style="deep-pressure"] .DeepPressureValveImage {
+    display: block;
+}
+
+/* ========================================
+   DEEP PRESSURE THEME
+   ======================================== */
+
+body[data-style="deep-pressure"] {
+    background-color: #031019;
+}
+
+body[data-style="deep-pressure"] .HeadingContainer::after {
+    background: linear-gradient(
+        180deg,
+        #50c5eb0a,
+        #001b2b66
+    );
+}
+
+body[data-style="deep-pressure"] .SectionTitle,
+body[data-style="deep-pressure"] .CountdownTitle {
+    color: #50c5eb;
+}
+
+body[data-style="deep-pressure"] .AboutContainer {
+    border-color: #50c5eb;
+    background: linear-gradient(135deg, #50c5eb0b, transparent);
+}
+
+body[data-style="deep-pressure"] .PlayButton,
+body[data-style="deep-pressure"] .DiscordButton {
+    border-color: #50c5eb;
+}
+
+/* ========================================
+   HIGH VOLTAGE THEME (LOCKED)
+   ======================================== */
+
+body[data-style="high-voltage"] {
+    background-color: #080908;
+}
+
+body[data-style="high-voltage"] .HeadingContainer::after {
+    background: linear-gradient(90deg, transparent, #ffd54318, transparent);
+}
+
+body[data-style="high-voltage"] .SectionTitle,
+body[data-style="high-voltage"] .CountdownTitle {
+    color: #ffd543;
+}
+
+body[data-style="high-voltage"] .AboutContainer {
+    border-color: #ffd543;
+    background: linear-gradient(135deg, #ffd5430b, transparent);
+}
+
+body[data-style="high-voltage"] .PlayButton,
+body[data-style="high-voltage"] .DiscordButton {
+    border-color: #ffd543;
+}
+
+/* Warning panel is ready for when High Voltage is unlocked */
+
+.HighVoltagePanel {
+    display: none;
+    position: fixed;
+    top: 105px;
+    right: 22px;
+    width: 205px;
+    padding: 14px;
+    box-sizing: border-box;
+    flex-direction: column;
+    gap: 10px;
+    color: #ffd543;
+    background: #101008ee;
+    border: 1px solid #ffd54399;
+    box-shadow: 0 0 20px #ffd54315;
+    font-family: Arial, sans-serif;
+}
+
+body[data-style="high-voltage"] .HighVoltagePanel {
+    display: flex;
+}
+
+.WarningStripe {
+    height: 7px;
+    margin: -14px -14px 5px;
+    background: repeating-linear-gradient(
+        135deg,
+        #ffd543 0 10px,
+        #17150b 10px 20px
+    );
+}
+
+.HighVoltagePanel strong,
+.HighVoltagePanel span {
+    font-family: "VALVESFONT";
+}
+
+.HighVoltagePanel strong {
+    font-size: 17px;
+}
+
+.HighVoltagePanel span {
+    font-size: 14px;
+}
+
+.PowerCell {
+    height: 14px;
+    padding: 3px;
+    border: 1px solid #ffd543;
+}
+
+.PowerCellFill {
+    width: 75%;
+    height: 100%;
+    background: #ffd543;
+}
+
+.HighVoltagePanel small {
+    color: #bcb58c;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+/* ========================================
+   CRITICAL FAILURE THEME (LOCKED)
+   ======================================== */
+
+body[data-style="critical-failure"] {
+    background-color: #100607;
+}
+
+body[data-style="critical-failure"] .HeadingContainer::after {
+    background: repeating-linear-gradient(
+        135deg,
+        transparent 0 45px,
+        #ff4b5709 45px 70px
+    );
+}
+
+body[data-style="critical-failure"] .SectionTitle,
+body[data-style="critical-failure"] .CountdownTitle {
+    color: #ff4b57;
+}
+
+body[data-style="critical-failure"] .AboutContainer {
+    border-color: #ff4b57;
+}
+
+body[data-style="critical-failure"] .PlayButton,
+body[data-style="critical-failure"] .DiscordButton {
+    border-color: #ff4b57;
+}
+
+/* ========================================
+   RESPONSIVE LAYOUT
+   ======================================== */
+
+@media (max-width: 600px) {
+    .Navbar {
+        padding: 12px;
+    }
+
+    .NavbarLogo {
+        font-size: 22px;
+    }
+
+    .NavbarLinks {
+        gap: 0;
+    }
+
+    .NavbarLink {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .StylesDropdown {
+        width: min(330px, calc(100vw - 24px));
+    }
+
+    .MainHeading {
+        font-size: clamp(65px, 16vw, 110px);
+    }
+
+    .SmallHeading {
+        font-size: 20px;
+    }
+
+    .HeadingContainer {
+        height: 400px;
+    }
+
+    .AboutContainer {
+        width: 90%;
+        padding: 35px 20px;
+    }
+
+    .SectionTitle {
+        font-size: 30px;
+    }
+
+    .TimeBox {
+        min-width: 75px;
+    }
+
+    .TimeBox span {
+        font-size: 28px;
+    }
+
+    .DeepPressureValveImage {
+        width: 160px;
+        left: -55px;
+        top: 45%;
+    }
+
+    .HighVoltagePanel {
+        top: 80px;
+        right: 8px;
+        width: 155px;
+        padding: 10px;
+    }
+
+    .WarningStripe {
+        margin: -10px -10px 5px;
+    }
 }
